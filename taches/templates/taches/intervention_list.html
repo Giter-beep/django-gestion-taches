@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Interventions</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            padding: 20px;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        a.button {
+            display: inline-block;
+            margin-bottom: 15px;
+            padding: 10px 15px;
+            background-color: #3498db;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        a.button:hover {
+            background-color: #2980b9;
+        }
+
+        ul.intervention-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        ul.intervention-list li {
+            background-color: white;
+            margin-bottom: 10px;
+            padding: 12px 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        ul.intervention-list li span {
+            display: inline-block;
+            min-width: 100px;
+        }
+
+        a.delete {
+            color: white;
+            background-color: #e74c3c;
+            padding: 5px 10px;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        a.delete:hover {
+            background-color: #c0392b;
+        }
+
+        .back-home {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #3498db;
+        }
+
+        .back-home:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Interventions</h2>
+
+<a class="button" href="{% url 'intervention_add' %}">Ajouter une intervention</a>
+
+<ul class="intervention-list">
+{% for i in interventions %}
+    <li>
+        <span><strong>Date:</strong> {{ i.date }}</span>
+        <span><strong>Type:</strong> {{ i.type }}</span>
+        <span><strong>État:</strong> {{ i.etat }}</span>
+        <span><strong>Client:</strong> {{ i.client.nom }}</span>
+        <span><strong>Intervenant:</strong> {{ i.intervenant.nom }}</span>
+        <a class="delete" href="{% url 'intervention_delete' i.id %}">Supprimer</a>
+    </li>
+{% empty %}
+    <li>Aucune intervention trouvée.</li>
+{% endfor %}
+</ul>
+
+<a class="back-home" href="{% url 'home' %}">← Retour à l'accueil</a>
+
+</body>
+</html>
+
